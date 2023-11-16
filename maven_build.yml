@@ -1,0 +1,27 @@
+---
+- hosts: all
+  user: root
+  become: yes
+  tasks:
+    - name: Ensure Java and Maven are installed
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - java  # Replace with your Java package name if necessary
+        - maven
+
+    - name: Clone or pull the Git repository (if not already done)
+      git:
+        repo: https://github.com/charan1103/maven.git  # Replace with your Git repository URL
+        dest: home/maven  # Replace with the destination path on the remote host
+        update: yes
+      become: yes  # If needed for write access
+
+    - name: Build the Java project with Maven
+      shell: mvn clean install
+      args:
+        chdir: home/maven  # Replace with your project's directory
+      become: yes  # If you need elevated privileges
+
+

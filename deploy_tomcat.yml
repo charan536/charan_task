@@ -1,0 +1,10 @@
+---
+- hosts: all
+  user: root
+  become: yes
+  tasks:
+    - name: copy the WAR file to tomcat webapps directory
+      copy:
+        src: /root/home/maven/target/charan.war
+        dest: /root/apache-tomcat-9.0.82/webapps/charan.war
+        remote_src: yes

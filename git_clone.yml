@@ -1,0 +1,11 @@
+---
+- hosts: all
+  user: root
+  become: yes
+  tasks:
+    - name: clone a github repository
+      git:
+        repo: https://github.com/charan1103/maven.git
+        dest: /home/repos
+        clone: yes
+        update: yes
